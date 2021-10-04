@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Note Your Day</string>
+    <string name="how_are_you_today">How are you today?</string>
+    <string name="hello">Hello World!</string>
+    <string name="monthly_journey">Monthly journey</string>
+    <string name="memories_of_the_day">Memories of the day</string>
+    <string name="yay_feeling">Yayyyy! Well done!</string>
+    <string name="sad_feeling">So scary! Hug hug! It will be fine!</string>
+    <string name="better_feeling">It is okay! Tomorrow will be even better!</string>
+    <string name="date_button">The chosen date</string>
+    <string name="memory_one">First memory of the day</string>
+    <string name="memory_two">Second memory of the day</string>
+    <string name="memory_three">Third memory of the day</string>
+    <string name="picture_of_memory">Picture of the memory</string>
+    <string name="memory_camera_chosen">Choose picture for the memory</string>
+    <string name="detail_of_memory">Detail of the memory</string>
+    <string name="send_button_text">Share</string>
+    <string name="what_is_your_name">What is your name?</string>
+    <string name="done">Done</string>
+    <string name="new_memory">New Memory</string>
+    <string name="delete_memory">Delete Memory</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="quality_0">Feeling 0 Really Bad</string>
+    <string name="quality_1">Feeling 1 Sad </string>
+    <string name="quality_2">Feeling 2 Neutral </string>
+    <string name="quality_3">Feeling 3 Content</string>
+    <string name="quality_4">Feeling 4 Happy </string>
+    <string name="quality_5">Feeling 5 Excited</string>
+
+    <string name="memory_sharing"> Share you that: On </string>
+    <string name="bbbb">bbbb</string>
+
+    <string name="memory_photo_image_description">Memory photo set</string>
+    <string name="memory_photo_no_image_description">Memory photo not set</string>
+    <string name="save">DONE</string>
+    <string name="saved">Saved!</string>
+</resources>
