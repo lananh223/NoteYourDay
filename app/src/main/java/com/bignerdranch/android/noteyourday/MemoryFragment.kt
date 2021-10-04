@@ -186,7 +186,7 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
             true
         }
 
-        _binding!!.doneButton.setOnClickListener { view: View ->
+        _binding?.doneButton?.setOnClickListener { view: View ->
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, MemoryListFragment())
