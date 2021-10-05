@@ -6,7 +6,8 @@
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/drawable-anydpi/ic_menu_add.xml" value="0.27870370370370373" />
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/activity_main.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/fragment_main.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/fragment_memories_of_the_day.xml" value="0.264" />
+        <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/fragment_main_land.xml" value="0.4" />
+        <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/fragment_memories_of_the_day.xml" value="0.2" />
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/fragment_memory_list.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout-land/list_item_memory.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/Sam/AndroidStudioProjects/NoteYourDay/app/src/main/res/layout/activity_main.xml" value="0.25833333333333336" />

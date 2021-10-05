@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/NoActionBar"
     android:visibility="visible"
     tools:context=".MainActivity">
 
@@ -21,30 +22,55 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="80dp"
+        android:text="@string/done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/name_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="335dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="blah blah blah"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/how_are_you"
-        android:layout_width="107dp"
-        android:layout_height="263dp"
+        android:layout_width="581dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="75dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="@string/how_are_you_today"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_text"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/quality_zero_image"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/quality_0"
         app:layout_constraintEnd_toStartOf="@+id/quality_one_image"
-        app:layout_constraintStart_toStartOf="@id/how_are_you"
-        app:layout_constraintTop_toBottomOf="@+id/name_edit"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/how_are_you"
         app:srcCompat="@drawable/ic_sleep_0" />
 
     <ImageButton
@@ -61,7 +87,6 @@
         android:id="@+id/quality_two_image"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_marginEnd="@dimen/margin"
         android:contentDescription="@string/quality_2"
         app:layout_constraintBottom_toBottomOf="@+id/quality_one_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,11 +97,11 @@
         android:id="@+id/quality_three_image"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/quality_3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/quality_four_image"
-        app:layout_constraintStart_toStartOf="@id/how_are_you"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quality_zero_image"
         app:srcCompat="@drawable/ic_sleep_3" />
 
@@ -95,7 +120,6 @@
         android:id="@+id/quality_five_image"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_marginEnd="@dimen/margin"
         android:contentDescription="@string/quality_5"
         app:layout_constraintBottom_toBottomOf="@+id/quality_four_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,38 +131,12 @@
         android:id="@+id/monthly_journey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/monthly_journey"
+        android:layout_marginTop="8dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quality_four_image"
-        app:layout_constraintVertical_bias="0.833" />
-
-    <Button
-        android:id="@+id/done_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_edit"
-        tools:layout_editor_absoluteY="98dp" />
-
-    <TextView
-        android:id="@+id/name_text"
-        android:layout_width="335dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="36dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="32sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done_button" />
+        app:layout_constraintTop_toBottomOf="@+id/quality_four_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
