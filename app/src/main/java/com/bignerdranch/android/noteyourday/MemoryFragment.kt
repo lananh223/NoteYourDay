@@ -20,7 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryDetailViewModel
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
@@ -44,7 +44,7 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
     private lateinit var photoFile: File
     private lateinit var photoUri: Uri
     private val memoryDetailViewModel:MemoryDetailViewModel by lazy{
-        ViewModelProviders.of(this).get(MemoryDetailViewModel::class.java)
+        ViewModelProvider(this).get(MemoryDetailViewModel::class.java)
     }
 
     var isCameraPermissionGranted: Boolean = false

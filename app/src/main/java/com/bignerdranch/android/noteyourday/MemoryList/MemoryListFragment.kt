@@ -7,7 +7,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.noteyourday.Memory
@@ -16,7 +16,7 @@ import java.util.*
 
 private const val TAG = "MemoryListFragment"
 
-class MemoryListFragment:Fragment() {
+class MemoryListFragment: Fragment() {
 
     /**
      * Required interface for hosting activities
@@ -31,7 +31,7 @@ class MemoryListFragment:Fragment() {
     private var adapter: MemoryAdapter?= MemoryAdapter(emptyList())
 
     private val memoryListViewModel:MemoryListViewModel by lazy {
-        ViewModelProviders.of(this).get(MemoryListViewModel::class.java)
+        ViewModelProvider(this).get(MemoryListViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
