@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/date_button"
         app:layout_constraintVertical_bias="0.26">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/picture_of_memory"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -61,15 +61,35 @@
             android:background="@android:color/darker_gray"
             android:cropToPadding="true"
             android:scaleType="centerInside"
-            android:text="@string/picture_of_memory" />
+            android:text="@string/picture_of_memory"
+            android:contentDescription="Photo" />
 
-        <ImageButton
-            android:id="@+id/memory_camera"
-            android:layout_width="29dp"
-            android:layout_height="34dp"
-            android:layout_gravity="center"
-            android:src="@android:drawable/ic_menu_camera"
-            android:text="@string/memory_camera_chosen" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/memory_camera"
+                android:layout_width="29dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_camera"
+                android:text="@string/memory_camera_chosen" />
+
+            <ImageButton
+                android:id="@+id/memory_gallery"
+                android:layout_width="29dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_margin="10dp"
+                android:text="@string/memory_camera_chosen" />
+
+        </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/detail_of_memory"
