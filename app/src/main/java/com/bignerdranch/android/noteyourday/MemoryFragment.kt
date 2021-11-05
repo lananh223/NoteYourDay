@@ -11,7 +11,6 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateFormat
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
@@ -20,14 +19,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryDetailViewModel
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
 import com.bignerdranch.android.noteyourday.databinding.FragmentMemoriesOfTheDayBinding
+import com.bumptech.glide.Glide
 import java.io.File
 import java.util.*
-import java.util.jar.Manifest
 
 private const val TAG = "MemoryFragment"
 private const val ARG_MEMORY_ID = "memory_id"
@@ -171,7 +170,17 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
                     startCamera(captureImage, packageManager)
                 }
             }
-                }
+        }
+
+        _binding?.memoryGallery?.setOnClickListener {
+            if (checkPermission()) {
+                val pickPhoto = Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                )
+                startActivityForResult(pickPhoto, GALLERY)
+            }
+        }
 
         _binding?.pictureOfMemory?.setOnLongClickListener {view: View ->
             Intent(Intent.ACTION_SEND).apply{
@@ -251,13 +260,18 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when {
-            requestCode == REQUEST_PHOTO -> {
+        when (requestCode) {
+            REQUEST_PHOTO -> {
                 requireActivity().revokeUriPermission(
                     photoUri,
                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 )
                 updatePhotoView()
+            }
+            GALLERY -> {
+                Glide.with(this)
+                    .load(data!!.dataString)
+                    .into(_binding?.pictureOfMemory!!)
             }
         }
     }
@@ -268,19 +282,29 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         return getString(R.string.memory_sharing) +" " + dateString +", "+ memory.detail
     }
 
-    override fun onActivityResult(result: Boolean?) {
-        TODO("Not yet implemented")
-    }
-
     private fun checkPermission(): Boolean {
         if(ContextCompat.checkSelfPermission(
             requireActivity(),
             android.Manifest.permission.CAMERA
-        ) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CAMERA), 3)
+        ) != PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 3)
             return false
         } else {
             return true
         }
+    }
+
+    override fun onActivityResult(result: Boolean?) {
+        TODO("Not yet implemented")
     }
 }

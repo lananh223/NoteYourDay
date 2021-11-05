@@ -11,8 +11,9 @@ import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
 import java.util.*
 
 private const val TAG = "MainActivity"
+const val GALLERY = 5
+private const val CAMERA_AND_STORAGE_PERMISSION_CODE = 3
 
-private const val CAMERA_PERMISSION_CODE = 3
 
 class MainActivity : AppCompatActivity(), MemoryListFragment.Callbacks{
 
@@ -69,11 +70,11 @@ class MainActivity : AppCompatActivity(), MemoryListFragment.Callbacks{
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION_CODE) {
+        if (requestCode == CAMERA_AND_STORAGE_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Camera Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }

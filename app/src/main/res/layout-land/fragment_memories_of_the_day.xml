@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/picture_of_memory"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
