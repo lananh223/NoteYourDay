@@ -21,6 +21,7 @@ It's basically a digital diary that you can add pictures on and share with other
 # Libraries
 
   * Room
+  * Glide
 
 # Contributors
 
