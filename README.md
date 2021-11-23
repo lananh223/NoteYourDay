@@ -11,7 +11,7 @@ It's basically a digital diary that you can add pictures on and share with other
 
   * Activity & Fragment
   * Implicit & Explicit Intents
-  * MVC Design
+  * MVVM Design
   * View Binding
   * Corountines
   * Room database & LiveData
