@@ -31,5 +31,4 @@ It's basically a digital diary that you can add pictures on and share with other
 
 # Contact Me!
 
-  * LinkedIn: https://www.linkedin.com/in/lan-anh-sam-dang-07970912b/
-  * E-mail: lan.anh.7988@gmail.com
+ [💼 Linkedin](https://www.linkedin.com/in/lan-anh-sam-dang-07970912b/)   • [🔔 Email](lan.anh.7988@gmail.com)   • [📱 Check Out Another Project!](https://github.com/lananh223/FunnyDrawingApp)
