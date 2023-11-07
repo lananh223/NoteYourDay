@@ -30,29 +30,29 @@ import java.util.*
 
 private const val TAG = "MemoryFragment"
 private const val ARG_MEMORY_ID = "memory_id"
-private const val DIALOG_DATE="DialogDate"
+private const val DIALOG_DATE = "DialogDate"
 private const val REQUEST_DATE = 0
 private const val DATE_FORMAT = "MMM-dd"
 private const val REQUEST_PHOTO = 2
 
-class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCallback<Boolean> {
+class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultCallback<Boolean> {
 
     private var _binding: FragmentMemoriesOfTheDayBinding? = null
     private val binding get() = _binding!!
     private lateinit var memory: Memory
     private lateinit var photoFile: File
     private lateinit var photoUri: Uri
-    private val memoryDetailViewModel:MemoryDetailViewModel by lazy{
+    private val memoryDetailViewModel: MemoryDetailViewModel by lazy {
         ViewModelProvider(this).get(MemoryDetailViewModel::class.java)
     }
 
     var isCameraPermissionGranted: Boolean = false
 
     // Create argument bundle to pass data around (memoryId), after that, update in MainActivity
-    companion object{
+    companion object {
 
-        fun newInstance(memoryId: UUID):MemoryFragment{
-            val args =  Bundle().apply{
+        fun newInstance(memoryId: UUID): MemoryFragment {
+            val args = Bundle().apply {
                 putSerializable(ARG_MEMORY_ID, memoryId)
             }
             return MemoryFragment().apply {
@@ -65,7 +65,7 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         super.onCreate(savedInstanceState)
         memory = Memory()
         //retrieve the UUID from fragment arguments(458)
-        val memoryId:UUID = arguments?.getSerializable(ARG_MEMORY_ID) as UUID
+        val memoryId: UUID = arguments?.getSerializable(ARG_MEMORY_ID) as UUID
         memoryDetailViewModel.loadMemory(memoryId)
     }
 
@@ -73,16 +73,16 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMemoriesOfTheDayBinding.inflate(inflater, container, false)
         val view = binding.root
 
         _binding!!.dateButton.setOnClickListener {
-                DatePickerFragment.newInstance(memory.date).apply{
-                    setTargetFragment(this@MemoryFragment, REQUEST_DATE)
-                    show(this@MemoryFragment.requireFragmentManager(), DIALOG_DATE)
-                }
+            DatePickerFragment.newInstance(memory.date).apply {
+                setTargetFragment(this@MemoryFragment, REQUEST_DATE)
+                show(this@MemoryFragment.requireFragmentManager(), DIALOG_DATE)
             }
+        }
         return view
     }
 
@@ -90,7 +90,11 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         super.onAttach(context)
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                Toast.makeText(requireActivity(), "Permission granted for camera :v", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity(),
+                    "Permission granted for camera :v",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 Toast.makeText(requireActivity(), "No permissions :(", Toast.LENGTH_SHORT).show()
             }
@@ -106,13 +110,16 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
                     this.memory = memory
                     photoFile = memoryDetailViewModel.getPhotoFile(memory)
                     // translate local file path into Uri
-                    photoUri = FileProvider.getUriForFile(requireActivity(),
-                    "com.bignerdranch.android.noteyourday.fileprovider",photoFile)
+                    photoUri = FileProvider.getUriForFile(
+                        requireActivity(),
+                        "com.bignerdranch.android.noteyourday.fileprovider", photoFile
+                    )
                     updateUI()
                 }
             }
         )
     }
+
     override fun onStart() {
         super.onStart()
 
@@ -143,32 +150,24 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         _binding?.detailOfMemory?.addTextChangedListener(titleWatcher)
 
         _binding?.shareButton?.setOnClickListener {
-            Intent(Intent.ACTION_SEND).apply{
+            Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT,getMemorySharing())
+                putExtra(Intent.EXTRA_TEXT, getMemorySharing())
             }
-                    // choose recipient
-                .also{ intent ->
-                val chooserIntent = Intent.createChooser(intent, getString(R.string.bbbb))
-                startActivity(chooserIntent)
-            }
+                // choose recipient
+                .also { intent ->
+                    val chooserIntent = Intent.createChooser(intent, getString(R.string.bbbb))
+                    startActivity(chooserIntent)
+                }
         }
 
-        _binding?.memoryCamera?.apply {
+        _binding?.memoryCamera?.setOnClickListener {
             val packageManager: PackageManager = requireActivity().packageManager
             val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val resolveActivity: ResolveInfo?=
-                packageManager.resolveActivity(captureImage,
-                    PackageManager.MATCH_DEFAULT_ONLY)
-            if (resolveActivity == null) {
-                isEnabled = false
-            }
 
-            setOnClickListener{
-                if (checkPermission()) {
-                    // Permission granted, so open camera
-                    startCamera(captureImage, packageManager)
-                }
+            if (checkPermission()) {
+                // Permission granted, so open camera
+                startCamera(captureImage, packageManager)
             }
         }
 
@@ -182,13 +181,13 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
             }
         }
 
-        _binding?.pictureOfMemory?.setOnLongClickListener {view: View ->
-            Intent(Intent.ACTION_SEND).apply{
+        _binding?.pictureOfMemory?.setOnLongClickListener { view: View ->
+            Intent(Intent.ACTION_SEND).apply {
                 type = "image/jpeg"
-                putExtra(Intent.EXTRA_STREAM,photoUri)
+                putExtra(Intent.EXTRA_STREAM, photoUri)
             }
                 // choose recipient
-                .also{ intent ->
+                .also { intent ->
                     val chooserIntent = Intent.createChooser(intent, getString(R.string.bbbb))
                     startActivity(chooserIntent)
                 }
@@ -203,7 +202,7 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         }
     }
 
-    private fun MemoryFragment.startCamera(
+    private fun startCamera(
         captureImage: Intent,
         packageManager: PackageManager
     ) {
@@ -231,8 +230,10 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
 
     override fun onDetach() {
         super.onDetach()
-        requireActivity().revokeUriPermission(photoUri,
-            Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        requireActivity().revokeUriPermission(
+            photoUri,
+            Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        )
     }
 
     override fun onDateSelected(date: Date) {
@@ -240,17 +241,17 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
         updateUI()
     }
 
-    private fun updateUI(){
+    private fun updateUI() {
         _binding?.detailOfMemory?.setText(memory.detail)
         _binding?.dateButton?.text = memory.date.toString()
         updatePhotoView()
     }
 
     private fun updatePhotoView() {
-        if(photoFile.exists()){
+        if (photoFile.exists()) {
             val bitmap = getScaledBitmap(photoFile.path, requireActivity())
             _binding?.pictureOfMemory?.setImageBitmap(bitmap)
-            _binding?.pictureOfMemory?.contentDescription=
+            _binding?.pictureOfMemory?.contentDescription =
                 getString(R.string.memory_photo_image_description)
         } else {
             _binding?.pictureOfMemory?.setImageDrawable(null)
@@ -268,6 +269,7 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
                 )
                 updatePhotoView()
             }
+
             GALLERY -> {
                 Glide.with(this)
                     .load(data!!.dataString)
@@ -279,25 +281,27 @@ class MemoryFragment: Fragment(), DatePickerFragment.Callbacks, ActivityResultCa
     @SuppressLint("StringFormatInvalid")
     private fun getMemorySharing(): String {
         val dateString = DateFormat.format(DATE_FORMAT, memory.date).toString()
-        return getString(R.string.memory_sharing) +" " + dateString +", "+ memory.detail
+        return getString(R.string.memory_sharing) + " " + dateString + ", " + memory.detail
     }
 
     private fun checkPermission(): Boolean {
-        if(ContextCompat.checkSelfPermission(
-            requireActivity(),
-            android.Manifest.permission.CAMERA
-        ) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
             && ContextCompat.checkSelfPermission(
                 requireActivity(),
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(requireActivity(),
+            ActivityCompat.requestPermissions(
+                requireActivity(),
                 arrayOf(
                     android.Manifest.permission.CAMERA,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ), 3)
+                ), 3
+            )
             return false
         } else {
             return true

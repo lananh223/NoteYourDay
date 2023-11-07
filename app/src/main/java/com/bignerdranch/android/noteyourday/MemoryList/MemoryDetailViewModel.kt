@@ -6,10 +6,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.bignerdranch.android.noteyourday.Memory
 import com.bignerdranch.android.noteyourday.MemoryRepository
-import com.bignerdranch.android.noteyourday.database.MemoryDao
-import kotlinx.coroutines.*
 import java.io.File
-import java.util.*
+import java.util.UUID
 
 class MemoryDetailViewModel:ViewModel() {
 
