@@ -2,38 +2,24 @@ package com.bignerdranch.android.noteyourday
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.bignerdranch.android.noteyourday.Memory.MemoryFragment
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
-import java.util.*
+import java.util.UUID
 
-private const val TAG = "MainActivity"
 const val GALLERY = 5
 private const val CAMERA_AND_STORAGE_PERMISSION_CODE = 3
 
 
-class MainActivity : AppCompatActivity(), MemoryListFragment.Callbacks{
+class MainActivity : AppCompatActivity(), MemoryListFragment.Callbacks {
 
     private val currentFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fragment_container)
     }
 
     private var isCameraPermissionGranted: Boolean = false
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        isCameraPermissionGranted = isGranted
-
-        if (isCameraPermissionGranted) {
-            Toast.makeText(this, "Camera permission granted yay :3", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "No camera permission :(", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +35,10 @@ class MainActivity : AppCompatActivity(), MemoryListFragment.Callbacks{
     }
 
     override fun onMemorySelected(memoryId: UUID) {
-      val fragment = MemoryFragment.newInstance(memoryId)
+        val fragment = MemoryFragment.newInstance(memoryId)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container,fragment)
+            .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
     }

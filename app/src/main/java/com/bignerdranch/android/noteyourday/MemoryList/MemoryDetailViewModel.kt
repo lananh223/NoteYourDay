@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.bignerdranch.android.noteyourday.Memory
-import com.bignerdranch.android.noteyourday.MemoryRepository
+import com.bignerdranch.android.noteyourday.Memory.Memory
+import com.bignerdranch.android.noteyourday.Memory.MemoryRepository
 import java.io.File
 import java.util.UUID
 
-class MemoryDetailViewModel:ViewModel() {
+class MemoryDetailViewModel : ViewModel() {
 
     private val memoryRepository = MemoryRepository.get()
     private val memoryIdLiveData = MutableLiveData<UUID>()

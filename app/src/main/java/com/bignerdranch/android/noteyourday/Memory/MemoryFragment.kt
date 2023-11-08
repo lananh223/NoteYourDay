@@ -1,5 +1,6 @@
-package com.bignerdranch.android.noteyourday
+package com.bignerdranch.android.noteyourday.Memory
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -11,7 +12,9 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateFormat
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,21 +22,25 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bignerdranch.android.noteyourday.GALLERY
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryDetailViewModel
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
+import com.bignerdranch.android.noteyourday.R
+import com.bignerdranch.android.noteyourday.Utils.DatePickerFragment
+import com.bignerdranch.android.noteyourday.Utils.getScaledBitmap
 import com.bignerdranch.android.noteyourday.databinding.FragmentMemoriesOfTheDayBinding
 import com.bumptech.glide.Glide
 import java.io.File
-import java.util.*
+import java.util.Date
+import java.util.UUID
 
-private const val TAG = "MemoryFragment"
 private const val ARG_MEMORY_ID = "memory_id"
 private const val DIALOG_DATE = "DialogDate"
 private const val REQUEST_DATE = 0
 private const val DATE_FORMAT = "MMM-dd"
 private const val REQUEST_PHOTO = 2
+
 
 class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultCallback<Boolean> {
 
@@ -77,7 +84,7 @@ class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultC
         _binding = FragmentMemoriesOfTheDayBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        _binding!!.dateButton.setOnClickListener {
+        binding.dateButton.setOnClickListener {
             DatePickerFragment.newInstance(memory.date).apply {
                 setTargetFragment(this@MemoryFragment, REQUEST_DATE)
                 show(this@MemoryFragment.requireFragmentManager(), DIALOG_DATE)
@@ -104,20 +111,19 @@ class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         memoryDetailViewModel.memoryLiveData.observe(
-            viewLifecycleOwner,
-            Observer { memory ->
-                memory?.let {
-                    this.memory = memory
-                    photoFile = memoryDetailViewModel.getPhotoFile(memory)
-                    // translate local file path into Uri
-                    photoUri = FileProvider.getUriForFile(
-                        requireActivity(),
-                        "com.bignerdranch.android.noteyourday.fileprovider", photoFile
-                    )
-                    updateUI()
-                }
+            viewLifecycleOwner
+        ) { memory ->
+            memory?.let {
+                this.memory = memory
+                photoFile = memoryDetailViewModel.getPhotoFile(memory)
+                // translate local file path into Uri
+                photoUri = FileProvider.getUriForFile(
+                    requireActivity(),
+                    "com.bignerdranch.android.noteyourday.fileprovider", photoFile
+                )
+                updateUI()
             }
-        )
+        }
     }
 
     override fun onStart() {
@@ -287,19 +293,19 @@ class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultC
     private fun checkPermission(): Boolean {
         if (ContextCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.CAMERA
+                Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
             && ContextCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(
-                    android.Manifest.permission.CAMERA,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
                 ), 3
             )
             return false
@@ -309,6 +315,6 @@ class MemoryFragment : Fragment(), DatePickerFragment.Callbacks, ActivityResultC
     }
 
     override fun onActivityResult(result: Boolean?) {
-        TODO("Not yet implemented")
+        /* NO-OP */
     }
 }

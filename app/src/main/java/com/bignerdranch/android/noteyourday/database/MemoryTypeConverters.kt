@@ -1,12 +1,13 @@
 package com.bignerdranch.android.noteyourday.database
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
+import java.util.UUID
 
 class MemoryTypeConverters {
 
     @TypeConverter
-    fun fromDate(date: Date?):Long?{
+    fun fromDate(date: Date?): Long? {
         return date?.time
     }
 
@@ -18,12 +19,12 @@ class MemoryTypeConverters {
     }
 
     @TypeConverter
-    fun toUUID(uuid:String?): UUID?{
+    fun toUUID(uuid: String?): UUID? {
         return UUID.fromString(uuid)
     }
 
     @TypeConverter
-    fun fromUUID(uuid:UUID?): String? {
+    fun fromUUID(uuid: UUID?): String? {
         return uuid?.toString()
     }
 }

@@ -1,42 +1,44 @@
-package com.bignerdranch.android.noteyourday
+package com.bignerdranch.android.noteyourday.Utils
 
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.GregorianCalendar
 
-private const val  ARG_DATE = "date"
+private const val ARG_DATE = "date"
 
-class DatePickerFragment:DialogFragment() {
+class DatePickerFragment : DialogFragment() {
 
-    interface Callbacks{
+    interface Callbacks {
 
-        fun onDateSelected(Date:Date)
+        fun onDateSelected(Date: Date)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Sending back the date to MemoryFragment
-        val dateListener = DatePickerDialog.OnDateSetListener{
-                _: DatePicker, year: Int, month: Int, day: Int ->
-            val resultDate : Date = GregorianCalendar(year, month, day).time
-            targetFragment?.let {fragment ->
-                (fragment as Callbacks).onDateSelected(resultDate)
+        val dateListener =
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
+                val resultDate: Date = GregorianCalendar(year, month, day).time
+                targetFragment?.let { fragment ->
+                    (fragment as Callbacks).onDateSelected(resultDate)
+                }
             }
-        }
 
         // Get date from arguments
         val date = arguments?.getSerializable(ARG_DATE) as Date
         val calendar = Calendar.getInstance()
-        calendar.time =  date
+        calendar.time = date
         val initialYear = calendar.get(Calendar.YEAR)
         val initialMonth = calendar.get(Calendar.MONTH)
         val initialDay = calendar.get(Calendar.DAY_OF_MONTH)
 
         return DatePickerDialog(
             requireContext(),
-           dateListener,
+            dateListener,
             initialYear,
             initialMonth,
             initialDay
@@ -44,10 +46,10 @@ class DatePickerFragment:DialogFragment() {
     }
 
     // Hide the date in argument, where Fragment can access
-    companion object{
-        fun newInstance(date:Date):DatePickerFragment{
-            val args = Bundle().apply{
-                putSerializable(ARG_DATE,date)
+    companion object {
+        fun newInstance(date: Date): DatePickerFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_DATE, date)
             }
 
             return DatePickerFragment().apply {

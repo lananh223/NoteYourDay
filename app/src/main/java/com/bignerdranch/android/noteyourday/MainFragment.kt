@@ -1,23 +1,18 @@
 package com.bignerdranch.android.noteyourday
 
-import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bignerdranch.android.noteyourday.MemoryList.MemoryListFragment
 import com.bignerdranch.android.noteyourday.databinding.FragmentMainBinding
-import android.content.SharedPreferences
-import android.widget.Toast
-
-import android.content.Context.MODE_PRIVATE
-import android.content.Context.MODE_PRIVATE
 
 private const val KEY_NAME = "name"
 
-class MainFragment: Fragment() {
+class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -26,11 +21,11 @@ class MainFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        _binding!!.qualityFiveImage?.setOnClickListener { view: View ->
+        binding.qualityFiveImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.yay_feeling,
@@ -39,7 +34,7 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.qualityFourImage?.setOnClickListener { view: View ->
+        binding.qualityFourImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.yay_feeling,
@@ -48,7 +43,7 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.qualityThreeImage?.setOnClickListener { view: View ->
+        binding.qualityThreeImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.better_feeling,
@@ -57,7 +52,7 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.qualityTwoImage?.setOnClickListener { view: View ->
+        binding.qualityTwoImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.better_feeling,
@@ -66,7 +61,7 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.qualityOneImage?.setOnClickListener { view: View ->
+        binding.qualityOneImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.sad_feeling,
@@ -75,7 +70,7 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.qualityZeroImage?.setOnClickListener { view: View ->
+        binding.qualityZeroImage.setOnClickListener { view: View ->
             Toast.makeText(
                 requireContext(),
                 R.string.sad_feeling,
@@ -84,18 +79,18 @@ class MainFragment: Fragment() {
                 .show()
         }
 
-        _binding!!.monthlyJourney.setOnClickListener { view: View ->
+        binding.monthlyJourney.setOnClickListener { view: View ->
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, MemoryListFragment())
                 .commit()
         }
 
-        _binding!!.doneButton.setOnClickListener {
+        binding.doneButton.setOnClickListener {
             addName()
             saveUsername()
         }
-        _binding!!.nameText.setOnClickListener {
+        binding.nameText.setOnClickListener {
             updateName()
         }
 
@@ -105,24 +100,24 @@ class MainFragment: Fragment() {
     }
 
     private fun addName() {
-        _binding!!.nameText.text = ("Hi " + _binding!!.nameEdit.text)
-        _binding!!.nameEdit.visibility = View.GONE
-        _binding!!.doneButton.visibility = View.GONE
-        _binding!!.nameText.visibility = View.VISIBLE
-        }
+        binding.nameText.text = "Hi " + binding.nameEdit.text
+        binding.nameEdit.visibility = View.GONE
+        binding.doneButton.visibility = View.GONE
+        binding.nameText.visibility = View.VISIBLE
+    }
 
     // Change the name if users put wrong
     private fun updateName() {
-    _binding!!.nameEdit.visibility = View.VISIBLE
-    _binding!!.doneButton.visibility = View.VISIBLE
-    _binding!!.nameText.visibility = View.GONE
+        binding.nameEdit.visibility = View.VISIBLE
+        binding.doneButton.visibility = View.VISIBLE
+        binding.nameText.visibility = View.GONE
     }
 
     // save username and show up the next time using sharedPreference
     private fun saveUsername() {
         val sharedPreferences = requireActivity().getPreferences(MODE_PRIVATE)
         with(sharedPreferences.edit()) {
-            val name = _binding!!.nameText.text.toString()
+            val name = binding.nameText.text.toString()
             putString(KEY_NAME, name)
             apply()
         }
@@ -134,12 +129,12 @@ class MainFragment: Fragment() {
     }
 
     private fun updateViews() {
-        _binding!!.nameText.text = getUsername()
+        binding.nameText.text = getUsername()
 
         if (getUsername() != "") {
-            _binding!!.nameText.visibility = View.VISIBLE
-            _binding!!.nameEdit.visibility = View.GONE
-            _binding!!.doneButton.visibility = View.GONE
+            binding.nameText.visibility = View.VISIBLE
+            binding.nameEdit.visibility = View.GONE
+            binding.doneButton.visibility = View.GONE
         }
     }
 }

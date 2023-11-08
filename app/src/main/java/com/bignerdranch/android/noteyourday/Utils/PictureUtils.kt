@@ -1,25 +1,25 @@
-package com.bignerdranch.android.noteyourday
+package com.bignerdranch.android.noteyourday.Utils
 
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
 
-fun getScaledBitmap(path: String, activity: Activity) : Bitmap {
+fun getScaledBitmap(path: String, activity: Activity): Bitmap {
     val size = Point()
     activity.windowManager.defaultDisplay.getSize(size)
 
     return getScaledBitmap(path, size.x, size.y)
 }
 
-fun getScaledBitmap(path: String, desWidth: Int, destHeight:Int): Bitmap {
+fun getScaledBitmap(path: String, desWidth: Int, destHeight: Int): Bitmap {
     //Read in the dimensions of the image on disk
     var options = BitmapFactory.Options()
     options.inJustDecodeBounds = true
     BitmapFactory.decodeFile(path, options)
 
     val srcWidth = options.outWidth.toFloat()
-    var srcHeight = options.outHeight.toFloat()
+    val srcHeight = options.outHeight.toFloat()
 
     // Figure out how much to scale by
     var inSampleSize = 1
