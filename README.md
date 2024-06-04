@@ -1,7 +1,6 @@
 # NoteYourDay
 
-**Note Your Day** is a native Android application that users can use for journaling. This can be for writing about things that you're grateful for or feel bad about.
-It's basically a digital diary that you can add pictures on and share with others.
+**Note Your Day** is a native Android application for digital journaling designed to help users track and reflect on their daily activities, thoughts, and emotions. It provides a platform for users to record notes, categorize entries, set reminders, and review past entries, aiming to promote mindfulness and self-awareness.
 
 ![Note Your Day](https://user-images.githubusercontent.com/90428483/155813264-88f16e96-90e4-4e03-a693-a7bbd8b97b31.png)
 
